@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import {applyMiddleware, combineReducers, compose, createStore} from "redux";
 import thunk from "redux-thunk";
 import {Provider} from "react-redux";
+import {BrowserRouter} from "react-router-dom";
 
 import App from './App';
 import dishesReducer from "./store/reducers/dishesReducer";
@@ -21,7 +22,9 @@ const store = createStore(rootReducer, composeEnhancers(
 
 const app = (
     <Provider store={store}>
-        <App />
+        <BrowserRouter>
+            <App />
+        </BrowserRouter>
     </Provider>
 );
 
