@@ -10,7 +10,10 @@ import {
     GET_DISH_BY_ID_SUCCESS,
     GET_DISHES_FAILURE,
     GET_DISHES_REQUEST,
-    GET_DISHES_SUCCESS
+    GET_DISHES_SUCCESS,
+    REMOVE_DISH_FAILURE,
+    REMOVE_DISH_REQUEST,
+    REMOVE_DISH_SUCCESS
 } from "../actions/dishesActions";
 
 const initialState = {
@@ -31,6 +34,12 @@ const dishesReducer = (state = initialState, action) => {
         case EDIT_DISH_SUCCESS:
             return {...state, loading: false};
         case EDIT_DISH_FAILURE:
+            return {...state, loading: false, error: action.payload};
+        case REMOVE_DISH_REQUEST:
+            return {...state, loading: true};
+        case REMOVE_DISH_SUCCESS:
+            return {...state, loading: false};
+        case REMOVE_DISH_FAILURE:
             return {...state, loading: false, error: action.payload};
         case GET_DISHES_REQUEST:
             return {...state, loading: true};

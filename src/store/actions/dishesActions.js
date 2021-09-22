@@ -8,6 +8,10 @@ export const EDIT_DISH_REQUEST = 'EDIT_DISH_REQUEST';
 export const EDIT_DISH_SUCCESS = 'EDIT_DISH_SUCCESS';
 export const EDIT_DISH_FAILURE = 'EDIT_DISH_FAILURE';
 
+export const REMOVE_DISH_REQUEST = 'REMOVE_DISH_REQUEST';
+export const REMOVE_DISH_SUCCESS = 'REMOVE_DISH_SUCCESS';
+export const REMOVE_DISH_FAILURE = 'REMOVE_DISH_FAILURE';
+
 export const GET_DISHES_REQUEST = 'GET_DISHES_REQUEST';
 export const GET_DISHES_SUCCESS = 'GET_DISHES_SUCCESS';
 export const GET_DISHES_FAILURE = 'GET_DISHES_FAILURE';
@@ -23,6 +27,11 @@ export const addDishFailure = error => ({type: ADD_DISH_FAILURE, payload: error}
 export const editDishRequest = () => ({type: EDIT_DISH_REQUEST});
 export const editDishSuccess = () => ({type: EDIT_DISH_SUCCESS});
 export const editDishFailure = error => ({type: EDIT_DISH_FAILURE, payload: error});
+
+export const removeDishRequest = () => ({type: REMOVE_DISH_REQUEST});
+export const removeDishSuccess = () => ({type: REMOVE_DISH_SUCCESS});
+export const removeDishFailure = error => ({type: REMOVE_DISH_FAILURE, payload: error});
+
 
 export const getDishesRequest = () => ({type: GET_DISHES_REQUEST});
 export const getDishesSuccess = dishes => ({type: GET_DISHES_SUCCESS, payload: dishes});
@@ -52,6 +61,18 @@ export const editDish = (dishData, id) => {
             dispatch(editDishSuccess());
         } catch (error) {
             dispatch(editDishFailure(error));
+        }
+    };
+};
+
+export const removeDish = id => {
+    return async dispatch => {
+        try {
+            dispatch(removeDishRequest());
+            await axiosApi.delete(`/dishes/${id}.json`);
+            dispatch(removeDishSuccess());
+        } catch (error) {
+            dispatch(removeDishFailure(error));
         }
     };
 };

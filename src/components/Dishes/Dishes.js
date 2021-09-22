@@ -4,7 +4,7 @@ import {Backdrop, CircularProgress, Grid} from "@mui/material";
 import {makeStyles} from '@mui/styles';
 
 import Dish from "../../components/Dish/Dish";
-import {getDishes} from "../../store/actions/dishesActions";
+import {getDishes, removeDish} from "../../store/actions/dishesActions";
 
 const useStyles = makeStyles(theme => ({
     backdrop: {
@@ -18,6 +18,7 @@ const useStyles = makeStyles(theme => ({
 
 const Dishes = ({history}) => {
     const classes = useStyles();
+
     const dispatch = useDispatch();
     const dishes = useSelector(state => state.dishes.dishes);
     const loading = useSelector(state => state.dishes.loading);
@@ -30,6 +31,11 @@ const Dishes = ({history}) => {
 
     const handleEdit = (id) => {
         history.push(`/dishes/edit/${id}`);
+    };
+
+    const handleRemove = async id => {
+        await dispatch(removeDish(id))
+        await dispatch(getDishes());
     };
 
     return (
@@ -54,6 +60,7 @@ const Dishes = ({history}) => {
                                     price={price}
                                     image={dishes[key].image}
                                     onEdit={() => handleEdit(key)}
+                                    onRemove={() => handleRemove(key)}
                                 />
                             </Grid>
                         })}
