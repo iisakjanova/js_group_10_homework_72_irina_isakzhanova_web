@@ -14,7 +14,9 @@ const App = () => {
           <CssBaseline />
           <Switch>
               <Route path="/" exact component={Dishes} />
+              <Route path="/dishes" exact component={Dishes} />
               <Route path="/dishes/add" component={DishFormPage} />
+              <Route path="/dishes/edit/:id" component={DishFormPage} />
               <Route render={() => <h1>Not found</h1>} />
           </Switch>
       </ThemeProvider>

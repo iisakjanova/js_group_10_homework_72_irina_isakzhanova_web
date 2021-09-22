@@ -13,10 +13,10 @@ const useStyles = makeStyles(theme => ({
     },
     root: {
         padding: theme.spacing(3),
-    }
+    },
 }));
 
-const Dishes = () => {
+const Dishes = ({history}) => {
     const classes = useStyles();
     const dispatch = useDispatch();
     const dishes = useSelector(state => state.dishes.dishes);
@@ -27,6 +27,10 @@ const Dishes = () => {
             await dispatch(getDishes());
         })();
     }, [dispatch]);
+
+    const handleEdit = (id) => {
+        history.push(`/dishes/edit/${id}`);
+    };
 
     return (
         <>
@@ -49,6 +53,7 @@ const Dishes = () => {
                                     title={title}
                                     price={price}
                                     image={dishes[key].image}
+                                    onEdit={() => handleEdit(key)}
                                 />
                             </Grid>
                         })}
