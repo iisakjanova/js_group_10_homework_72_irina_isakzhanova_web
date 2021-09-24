@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {Backdrop, CircularProgress, Grid} from "@mui/material";
+import {Backdrop, Button, CircularProgress, Grid, Typography} from "@mui/material";
 import {makeStyles} from '@mui/styles';
 
 import Dish from "../../components/Dish/Dish";
@@ -13,6 +13,13 @@ const useStyles = makeStyles(theme => ({
     },
     root: {
         padding: theme.spacing(3),
+    },
+    title: {
+        flexGrow: 1,
+        paddingBottom: theme.spacing(3),
+    },
+    button: {
+        alignSelf: "center",
     },
 }));
 
@@ -28,6 +35,10 @@ const Dishes = ({history}) => {
             await dispatch(getDishes());
         })();
     }, [dispatch]);
+
+    const handleAdd = () => {
+        history.push(`/dishes/add`);
+    };
 
     const handleEdit = (id) => {
         history.push(`/dishes/edit/${id}`);
@@ -49,6 +60,19 @@ const Dishes = ({history}) => {
                 dishes
                     ?
                     <Grid container direction="column" className={classes.root}>
+                        <Grid container direction="row">
+                            <Typography variant="h5" className={classes.title}>
+                                Dishes
+                            </Typography>
+                            <Button
+                                variant="outlined"
+                                color="secondary"
+                                onClick={handleAdd}
+                                className={classes.button}
+                            >
+                                Add new dish
+                            </Button>
+                        </Grid>
                         {Object.keys(dishes).map(key => {
                             const title = dishes[key].title;
                             const price = Number(dishes[key].price);

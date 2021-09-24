@@ -4,7 +4,8 @@ import {Route, Switch} from "react-router-dom";
 import {CssBaseline} from "@mui/material";
 
 import DishFormPage from "./containers/DishFormPage/DishFormPage";
-import Dishes from "./components/Dishes/Dishes";
+import Dishes from "./containers/Dishes/Dishes";
+import Layout from "./components/Layout/Layout";
 
 const theme = createTheme();
 
@@ -12,6 +13,7 @@ const App = () => {
   return (
       <ThemeProvider theme={theme}>
           <CssBaseline />
+          <Layout />
           <Switch>
               <Route path="/" exact component={Dishes} />
               <Route path="/dishes" exact component={Dishes} />
