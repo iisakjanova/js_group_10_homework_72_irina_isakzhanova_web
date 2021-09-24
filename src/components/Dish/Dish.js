@@ -2,6 +2,7 @@ import React from 'react';
 import {Button, Grid, Paper, Typography} from "@mui/material";
 
 import {makeStyles} from '@mui/styles';
+import {CURRENCY} from "../../constants";
 
 const useStyles = makeStyles(theme => ({
     item: {
@@ -38,7 +39,7 @@ const Dish = (props) => {
                     <Typography variant="subtitle1">{props.title}</Typography>
                 </Grid>
                 <Grid item className={classes.info}>
-                    <Typography variant="h6">{props.price} KGS</Typography>
+                    <Typography variant="h6">{props.price} {CURRENCY}</Typography>
                 </Grid>
                 <Grid item className={classes.buttons}>
                     <Button
