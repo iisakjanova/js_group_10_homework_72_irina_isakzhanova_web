@@ -69,7 +69,12 @@ const DishForm = ({id}) => {
                     <CircularProgress color="inherit" />
                 </Backdrop>
                 :
-                <Grid container direction="column" spacing={2} component="form" onSubmit={handleFormSubmit}>
+                <Grid container
+                      direction="column"
+                      spacing={2}
+                      component="form"
+                      onSubmit={handleFormSubmit}
+                >
                     <Grid item>
                         <TextField
                             required
