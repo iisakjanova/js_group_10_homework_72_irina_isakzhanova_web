@@ -4,7 +4,7 @@ import {Backdrop, Button, CircularProgress, Grid, Typography} from "@mui/materia
 import {makeStyles} from '@mui/styles';
 
 import Dish from "../../components/Dish/Dish";
-import {getDishes, removeDish} from "../../store/actions/dishesActions";
+import {getDishes, removeDish, removeDishFromState} from "../../store/actions/dishesActions";
 
 const useStyles = makeStyles(theme => ({
     backdrop: {
@@ -45,8 +45,8 @@ const Dishes = ({history}) => {
     };
 
     const handleRemove = async id => {
-        await dispatch(removeDish(id))
-        await dispatch(getDishes());
+        dispatch(removeDishFromState(id));
+        await dispatch(removeDish(id));
     };
 
     return (
@@ -57,7 +57,7 @@ const Dishes = ({history}) => {
                     <CircularProgress color="inherit" />
                 </Backdrop>
                 :
-                dishes
+                Object.keys(dishes).length > 0
                     ?
                     <Grid container direction="column" className={classes.root}>
                         <Grid container direction="row">

@@ -8,6 +8,7 @@ export const EDIT_DISH_REQUEST = 'EDIT_DISH_REQUEST';
 export const EDIT_DISH_SUCCESS = 'EDIT_DISH_SUCCESS';
 export const EDIT_DISH_FAILURE = 'EDIT_DISH_FAILURE';
 
+export const REMOVE_DISH_FROM_STATE = 'REMOVE_DISH_FROM_STATE';
 export const REMOVE_DISH_REQUEST = 'REMOVE_DISH_REQUEST';
 export const REMOVE_DISH_SUCCESS = 'REMOVE_DISH_SUCCESS';
 export const REMOVE_DISH_FAILURE = 'REMOVE_DISH_FAILURE';
@@ -28,6 +29,7 @@ export const editDishRequest = () => ({type: EDIT_DISH_REQUEST});
 export const editDishSuccess = () => ({type: EDIT_DISH_SUCCESS});
 export const editDishFailure = error => ({type: EDIT_DISH_FAILURE, payload: error});
 
+export const removeDishFromState = id => ({type: REMOVE_DISH_FROM_STATE, payload: id});
 export const removeDishRequest = () => ({type: REMOVE_DISH_REQUEST});
 export const removeDishSuccess = () => ({type: REMOVE_DISH_SUCCESS});
 export const removeDishFailure = error => ({type: REMOVE_DISH_FAILURE, payload: error});

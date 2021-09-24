@@ -1,11 +1,10 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {Button, Grid, Paper, Typography} from "@mui/material";
 import {makeStyles} from "@mui/styles";
 import {useDispatch, useSelector} from "react-redux";
 
-import {getDishes} from "../../store/actions/dishesActions";
 import {CURRENCY, DELIVERY_PRICE} from "../../constants";
-import {getOrders, removeOrder} from "../../store/actions/ordersActions";
+import {removeOrder, removeOrderFromState} from "../../store/actions/ordersActions";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -38,7 +37,6 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-
 const Order = (props) => {
     const classes = useStyles();
 
@@ -56,8 +54,8 @@ const Order = (props) => {
     const total = calculateTotal(order) + DELIVERY_PRICE;
 
     const handleCompleteOrder = async (id) => {
+        dispatch(removeOrderFromState(id));
         await dispatch(removeOrder(id));
-        await dispatch(getOrders());
     };
 
     return (
@@ -71,10 +69,10 @@ const Order = (props) => {
                                 {Object.keys(order).map(key => (
                                     <Grid key={key} container direction="row" className={classes.item}>
                                         <Typography variant="subtitle1" className={classes.itemPart}>
-                                            {order[key]} X {dishes[key].title}
+                                            {order[key]} X {dishes[key]?.title}
                                         </Typography>
                                         <Typography  variant="subtitle1" className={classes.itemPart}>
-                                            {dishes[key].price} {CURRENCY}
+                                            {dishes[key]?.price} {CURRENCY}
                                         </Typography>
                                     </Grid>
                                 ))}
