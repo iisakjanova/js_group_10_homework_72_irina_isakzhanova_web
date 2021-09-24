@@ -5,6 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 
 import {getDishes} from "../../store/actions/dishesActions";
 import {CURRENCY, DELIVERY_PRICE} from "../../constants";
+import {getOrders, removeOrder} from "../../store/actions/ordersActions";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -26,8 +27,14 @@ const useStyles = makeStyles(theme => ({
     itemPart: {
         width: "50%",
     },
+    totalBlock: {
+        width: "35% !important",
+    },
     total: {
         width: "100%",
+    },
+    button: {
+        alignSelf: "flex-start",
     },
 }));
 
@@ -38,24 +45,23 @@ const Order = (props) => {
     const dispatch = useDispatch();
     const dishes = useSelector(state => state.dishes.dishes);
 
-    useEffect(() => {
-        (async () => {
-            await dispatch(getDishes());
-        })();
-    }, [dispatch]);
-
     const order = props.data;
 
     const calculateTotal = order => {
         return Object.keys(order).reduce((acc, key) => {
-            return acc + order[key] * dishes[key].price;
+            return acc + order[key] * (dishes[key]?.price ?? 0);
         }, 0);
     };
 
     const total = calculateTotal(order) + DELIVERY_PRICE;
 
+    const handleCompleteOrder = async (id) => {
+        await dispatch(removeOrder(id));
+        await dispatch(getOrders());
+    };
+
     return (
-        dishes
+        Object.keys(dishes).length > 0
             ?
             <Grid item className={classes.root}>
                 <Paper className={classes.paper}>
@@ -82,19 +88,24 @@ const Order = (props) => {
                                 </Grid>
                             </Grid>
                         </Grid>
-                        <Grid container direction="column" xs={4}>
+                        <Grid container direction="column" className={classes.totalBlock}>
                             <Typography variant="subtitle1" className={classes.total}>
                                 Order total:
                             </Typography>
                             <Typography variant="subtitle1" className={classes.total}>
                                 {total} {CURRENCY}
                             </Typography>
-                            <Button variant="outlined">Complete order</Button>
+                            <Button
+                                variant="outlined"
+                                className={classes.button}
+                                onClick={() => handleCompleteOrder(props.id)}
+                            >
+                                Complete order
+                            </Button>
                         </Grid>
                     </Grid>
                 </Paper>
             </Grid>
-
             :
             null
     );

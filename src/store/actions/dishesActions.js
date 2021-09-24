@@ -32,7 +32,6 @@ export const removeDishRequest = () => ({type: REMOVE_DISH_REQUEST});
 export const removeDishSuccess = () => ({type: REMOVE_DISH_SUCCESS});
 export const removeDishFailure = error => ({type: REMOVE_DISH_FAILURE, payload: error});
 
-
 export const getDishesRequest = () => ({type: GET_DISHES_REQUEST});
 export const getDishesSuccess = dishes => ({type: GET_DISHES_SUCCESS, payload: dishes});
 export const getDishesFailure = error => ({type: GET_DISHES_FAILURE, payload: error});

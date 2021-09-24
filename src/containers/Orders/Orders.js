@@ -4,7 +4,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {makeStyles} from "@mui/styles";
 
 import {getOrders} from "../../store/actions/ordersActions";
-import Order from "../../components/Order/Order";
+import Order from "../Order/Order";
+import {getDishes} from "../../store/actions/dishesActions";
 
 const useStyles = makeStyles(theme => ({
     backdrop: {
@@ -32,6 +33,12 @@ const Orders = () => {
     useEffect(() => {
         (async () => {
             await dispatch(getOrders());
+        })();
+    }, [dispatch]);
+
+    useEffect(() => {
+        (async () => {
+            await dispatch(getDishes());
         })();
     }, [dispatch]);
 
